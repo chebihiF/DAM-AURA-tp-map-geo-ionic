@@ -1,0 +1,7 @@
+{
+  "name": "tp-map-geo",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
