@@ -17,27 +17,21 @@ export class HomePage implements OnInit {
   constructor(private alertCtrl: AlertController) {}
 
   ionViewWillEnter(){
-    this.map = L.map('mapId').setView([41.4520951,2.2311724], 13);
+    this.locateUser()
+  }
+
+  showMap(lat: number, lng: number){
+    this.map = L.map('mapId').setView([lat,lng], 13);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(this.map);
 
     L.marker(
-      [41.4040129,2.1749179],
+      [lat,lng],
       {icon: L.icon({iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png'})})
       .addTo(this.map)
-    .bindPopup('A pretty place in barcelone')
+    .bindPopup('Home sweet Home')
     .openPopup();
-
-    L.marker(
-      [41.4242926,2.1904551],
-      {icon: L.icon({iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png'})})
-      .addTo(this.map)
-    .bindPopup('A pretty place in barcelone')
-    .openPopup();
-
-    this.locateUser()
-
   }
 
   ngOnInit(): void {
@@ -61,7 +55,7 @@ export class HomePage implements OnInit {
       const coordinates = {
         latitude: geoPosition.coords.latitude,
         longitude: geoPosition.coords.longitude}
-        console.log(coordinates)
+        this.showMap(coordinates.latitude, coordinates.longitude)
     })
     .catch(err => this.showErrorAlert())
   }
